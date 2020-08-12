@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#F3F3F3"
+    android:layout_height="match_parent"
+    tools:context=".Activities.login_activity">
+
+    <include layout="@layout/logo"
+        android:id="@+id/logo"
+        android:layout_marginTop="100dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="10dp"
+
+        android:id="@+id/loginUsernameLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:id="@+id/loginUsername"
+            android:background="@drawable/custom_text"
+            android:backgroundTint="@color/cardview_shadow_start_color"
+            android:layout_marginBottom="10dp"
+            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:paddingLeft="10dp"
+            android:textColor="@color/white"
+            android:hint="Username"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginUsernameLayout"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/loginPasswordLayout"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@android:color/white">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/custom_text"
+            android:backgroundTint="@color/cardview_shadow_start_color"
+            android:layout_marginBottom="10dp"
+            android:drawableStart="@drawable/ic_password"
+            android:inputType="textPassword"
+            android:id="@+id/loginPassword"
+            android:paddingLeft="10dp"
+            android:textColor="@color/white"
+            android:hint="Password"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/custom_text"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_marginHorizontal="30dp"
+        android:layout_below="@id/loginPasswordLayout"
+        android:layout_marginTop="60dp"
+        android:text="Login"
+        android:onClick="login"
+        android:id="@+id/loginButton"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:backgroundTint="@android:color/transparent"
+        android:layout_marginHorizontal="30dp"
+        android:layout_below="@id/loginButton"
+        android:layout_marginTop="20dp"
+        android:text="Sign Up"
+        android:id="@+id/SignButton"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20dp"/>
+
+</RelativeLayout>

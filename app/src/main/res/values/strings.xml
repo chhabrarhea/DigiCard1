@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">DigiCard</string>
+    <string name="social_media">Social Media</string>
+    <string name="bank_details">Bank Details</string>
+    <string name="address">Address</string>
+    <string name="email">Email</string>
+    <string name="contact_number">Contact Number</string>
+    <string name="company">Career</string>
+    <string name="photo">Photo</string>
+    <string name="name">Bio</string>
+    <string name="pref_config">CardPrefferedConfig</string>
+    <string name="checkStatus">loginStatus</string>
+    <string name="currentUser">mCurrentUser</string>
+    <string name="share_domain">www.355668.xyz/bsncard/</string>
+    <string name="Key_cardName">cardName</string>
+    <string name="check_internet_connection">Check Internet Connection! :(</string>
+    <string name="card">Card</string>
+    <string name="digi">Digi</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="full_name">Full Name</string>
+    <string name="designation">Designation</string>
+</resources>

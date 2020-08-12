@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<item  android:title="Preview" android:id="@+id/preview"
+    android:icon="@drawable/ic_business_card"
+    app:showAsAction="always"
+    android:iconTint="@color/white"/>
+
+    <item android:title="Save"
+        android:id="@+id/save"
+        android:icon="@drawable/save"
+        app:showAsAction="always"/>
+
+    <item android:title="Theme"
+        android:id="@+id/PickColor"
+        android:icon="@drawable/palette"
+        app:showAsAction="always"/>
+    <item android:title="Reset"
+        android:id="@+id/Reset"
+        android:icon="@drawable/ic_baseline_refresh_24"
+        app:showAsAction="always"/>
+</menu>

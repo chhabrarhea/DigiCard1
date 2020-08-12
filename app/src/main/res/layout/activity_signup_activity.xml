@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#F3F3F3"
+    android:layout_height="match_parent"
+    tools:context=".Activities.signup_activity">
+
+    <include layout="@layout/logo"
+        android:id="@+id/logo"
+        android:layout_marginTop="60dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="30dp"
+        app:hintTextColor="@color/white"
+        android:hint="@string/email"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/signEmailLayout">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/custom_text"
+        android:backgroundTint="@color/cardview_shadow_start_color"
+        android:layout_marginBottom="10dp"
+        android:drawableStart="@drawable/ic_baseline_email_24"
+        android:inputType="textWebEmailAddress"
+        android:padding="10dp"
+        tools:ignore="PrivateResource" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signEmailLayout"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/signUsernameLayout">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/custom_text"
+            android:backgroundTint="@color/cardview_shadow_start_color"
+            android:layout_marginBottom="10dp"
+            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:padding="10dp"
+            android:hint="@string/username" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signUsernameLayout"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="5dp"
+        android:id="@+id/signPasswordLayout"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@android:color/white">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/custom_text"
+            android:backgroundTint="@color/cardview_shadow_start_color"
+            android:layout_marginBottom="10dp"
+            android:drawableStart="@drawable/ic_password"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:hint="@string/password"
+            tools:ignore="PrivateResource" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signPasswordLayout"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="30dp"
+        android:id="@+id/signConfirmPasswordLayout"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="5dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/custom_text"
+            android:backgroundTint="@color/cardview_shadow_start_color"
+            android:layout_marginBottom="10dp"
+            android:drawableStart="@drawable/ic_password"
+            android:inputType="textPassword"
+            android:padding="10sp"
+            android:hint="@string/confirm_password"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/custom_text"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_marginHorizontal="30dp"
+        android:layout_below="@id/signConfirmPasswordLayout"
+        android:layout_marginTop="60dp"
+        android:text="@string/sign_up"
+        android:id="@+id/signupButton"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:backgroundTint="@android:color/transparent"
+        android:layout_marginHorizontal="30dp"
+        android:layout_below="@id/signupButton"
+        android:layout_marginTop="20dp"
+        android:text="@string/login"
+        android:id="@+id/logButton"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"/>
+
+</RelativeLayout>

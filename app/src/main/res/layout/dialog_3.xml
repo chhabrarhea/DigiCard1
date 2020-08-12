@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/toolbar_background"
+    android:backgroundTint="@color/white"
+    android:layout_height="wrap_content">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:layout_alignParentTop="true"
+        app:titleTextColor="@color/black"
+        android:backgroundTint="@color/cardview_shadow_start_color"
+        android:background="@drawable/toolbar_background"
+        android:id="@+id/custom_toolbar"
+        tools:ignore="PrivateResource" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/black"
+        android:background="@drawable/custom_text"
+        android:backgroundTint="@color/cardview_shadow_start_color"
+        android:id="@+id/custom_editText1"
+        android:layout_below="@id/custom_toolbar"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:padding="10dp"
+        android:background="@drawable/custom_text"
+        android:backgroundTint="@color/cardview_shadow_start_color"
+        android:layout_marginLeft="10dp"
+        android:textSize="20sp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/custom_editText2"
+        android:layout_below="@id/custom_editText1"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:background="@drawable/custom_text"
+        android:backgroundTint="@color/cardview_shadow_start_color"
+        android:layout_marginRight="10dp"
+        android:id="@+id/custom_editText3"
+
+        android:layout_below="@id/custom_editText2"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/custom_editText3"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="35dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/custom_relative2">
+        <Button
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:background="@drawable/custom_text"
+            android:backgroundTint="@color/colorPrimary"
+            android:elevation="4dp"
+            android:text="@string/ok"
+            android:layout_alignParentStart="true"
+            android:textColor="@color/white"
+            android:id="@+id/custom_ok"
+            android:layout_marginStart="50dp"/>
+
+        <Button
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+
+            android:text="@string/cancel"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="50dp"
+            android:textColor="@color/black"
+            android:background="@drawable/custom_text"
+            android:backgroundTint="@color/cardview_shadow_end_color"
+            android:id="@+id/custom_cancel"/>
+    </RelativeLayout>
+
+</RelativeLayout>
