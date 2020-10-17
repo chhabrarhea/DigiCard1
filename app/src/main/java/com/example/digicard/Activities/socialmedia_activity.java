@@ -36,8 +36,6 @@ public class socialmedia_activity extends AppCompatActivity {
         toolbar.setTitle("Add Instagram");
         if(!card.getInstagram().equals(""))
             editText1.setText(card.getInstagram());
-        else
-            editText1.setText("https://www.instagram.com/");
         editText1.setSelection(editText1.getText().length());
         ok.setText("OK");
         cancel.setText("Cancel");
@@ -52,7 +50,7 @@ public class socialmedia_activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 card.setInstagram(editText1.getText().toString());
-                if(!card.getInstagram().equals(""))
+                if(!card.getInstagram().equals("https://www.instagram.com/"))
                     postCard.put("instagram",card.getInstagram());
                 alertDialog.dismiss();
             }

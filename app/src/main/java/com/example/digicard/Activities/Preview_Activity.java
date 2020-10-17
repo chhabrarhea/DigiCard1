@@ -5,19 +5,28 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -26,15 +35,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.digicard.Database.AppController;
-import com.example.digicard.LocalDatabase.CurrentUser;
+import com.bumptech.glide.Glide;
+import com.example.digicard.Api.ApiService;
+import com.example.digicard.LocalDatabase.AppController;
+import com.example.digicard.Api.Client;
 import com.example.digicard.R;
 import com.example.digicard.model.card_attributes;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.List;
+
 
 
 public class Preview_Activity extends AppCompatActivity {
@@ -52,10 +62,7 @@ public class Preview_Activity extends AppCompatActivity {
     GridLayout relative3;
     LinearLayout relative2;
     int pos;
-
     Boolean saved;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +73,10 @@ public class Preview_Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Intent intent = getIntent();
 
+
         card1 = intent.getParcelableExtra("Preview_Card");
+
+
         pos=intent.getIntExtra("position",-1);
         saved=intent.getBooleanExtra("isSaved",true);
         dp=findViewById(R.id.dp);
@@ -75,15 +85,13 @@ public class Preview_Activity extends AppCompatActivity {
         comma = findViewById(R.id.comma);
         designation = findViewById(R.id.designation);
         relative2=findViewById(R.id.relative2);
-
         about_me = findViewById(R.id.about);
         number = findViewById(R.id.number);
         address = findViewById(R.id.address);
         email = findViewById(R.id.email);
         payment=findViewById(R.id.bank);
         relative3=findViewById(R.id.myGrid);
-        setTitle(card1.getUsername());
-        payment.setBackground(getDrawable(R.drawable.custom_text));
+        setTitle(card1.getCardname());
         payment.setBackgroundColor((card1.getColor()));
         relative3.setColumnCount(6);
         relative3.setRowCount(1);
@@ -94,12 +102,6 @@ public class Preview_Activity extends AppCompatActivity {
         drawable2.setTint(card1.getColor());
         Drawable drawable3=getDrawable(R.drawable.ic_pin);
         drawable3.setTint(card1.getColor());
-
-//        drawable.setColorFilter(card1.getColor(), PorterDuff.Mode.);
-
-
-        payment.setBackground(getDrawable(R.drawable.custom_text));
-        payment.setBackgroundColor(card1.getColor());
 
         name.setText(card1.getName());
         if (!card1.getCompany().equals("")) {
@@ -115,11 +117,25 @@ public class Preview_Activity extends AppCompatActivity {
         if(!card1.getCompany().equals("") && !card1.getDesignation().equals(""))
             comma.setVisibility(View.VISIBLE);
 
-
+         if(card1.getImage_path()!=null && !card1.getImage_path().equals(""))
+         {
+             dp.setVisibility(View.VISIBLE);
+             if(saved)
+             Glide.with(Preview_Activity.this).load(card1.getImage_path()).asBitmap().centerCrop().into(dp);
+             else
+             {
+                 byte[] data= Base64.decode(card1.getImage_path(),Base64.DEFAULT);
+                 Bitmap b= BitmapFactory.decodeByteArray(data,0,data.length);
+                 dp.setImageBitmap(b);
+             }
+         }
         if (!card1.getEmail().equals("")) {
+            email.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
             email.setVisibility(View.VISIBLE);
+            email.setTextColor(Color.BLACK);
             email.setCompoundDrawablesWithIntrinsicBounds(drawable1,null,null,null);
             email.setText(card1.getEmail());
+            email.setOnTouchListener(textTouch);
 
         }
         if (!card1.getAddress().equals("")) {
@@ -129,6 +145,9 @@ public class Preview_Activity extends AppCompatActivity {
 
         }
         if (!card1.getPhone().equals("")) {
+            number.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+            number.setTextColor(Color.BLACK);
+            number.setOnTouchListener(textTouch);
             number.setVisibility(View.VISIBLE);
             number.setCompoundDrawablesWithIntrinsicBounds(drawable2,null,null,null);
             number.setText(card1.getPhone());
@@ -185,40 +204,40 @@ public class Preview_Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.save)
         {
-            try {
-                String url= URLEncoder.encode(card1.getUsername(),"utf-8");
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Hi!Please click on the link below to view my business card.\n" + Html.fromHtml(getString(R.string.share_domain) + "" +url+ "\n Made with Digicard"));
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Hi!Please click on the link below to view my business card.\n" + Html.fromHtml(getString(R.string.share_domain) + "\n" +card1.getId()+ "\n Made with Digicard"));
                 sendIntent.setType("text/html");
                 Intent shareIntent = Intent.createChooser(sendIntent, null);
                 startActivity(shareIntent);
                 return true;
-            } catch (UnsupportedEncodingException e) {
-                Toast.makeText(this, "Error Occured, Try Again.", Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
-            }
-
         }
         else if (item.getItemId()==R.id.delete)
         {
-            try {
-                AppController myInstance=AppController.getInstance();
-                CurrentUser currentUser=new CurrentUser(Preview_Activity.this);
-                List<Integer> id=myInstance.getCardId();
-                id.remove(pos);
-                List<card_attributes> cards=myInstance.getMyCards();
-                cards.remove(pos);
-                myInstance.setCardId(id);
-                currentUser.saveMyCards(id);
-                Intent intent=new Intent(Preview_Activity.this,myCardsActivity.class);
-                myInstance.setMyCards(cards);
-                startActivity(intent);
-                finish();
-            } catch (IOException e) {
-                Toast.makeText(this, "Error Occured, Try Again", Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
-            }
+                ApiService apiService= Client.getClient().create(ApiService.class);
+                apiService.deletecard(card1.getId()).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if(response.isSuccessful())
+                        {
+                                AppController myInstance=AppController.getInstance(Preview_Activity.this);
+                                List<card_attributes> cards=myInstance.getMyCards();
+                                cards.remove(pos);
+                                Intent intent=new Intent(Preview_Activity.this,myCardsActivity.class);
+                                myInstance.setMyCards(cards);
+                                startActivity(intent);
+                                finish();
+                        }
+                        else
+                            Toast.makeText(Preview_Activity.this, "Error Occured, Try Again!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Toast.makeText(Preview_Activity.this, "Error Occured, Try Again!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
 
         }
 
@@ -227,7 +246,14 @@ public class Preview_Activity extends AppCompatActivity {
 
     public void bankDetails(View view)
     {
-
+    AlertDialog.Builder alert=new AlertDialog.Builder(Preview_Activity.this);
+    alert.setTitle("Bank Details").setMessage("UPI ID: "+card1.getUpi()+"\nGST: "+card1.getGst()+"\nAccount Number: "+card1.getAccount())
+            .setPositiveButton("Dismiss", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            }).show();
 
     }
 
@@ -240,7 +266,8 @@ public class Preview_Activity extends AppCompatActivity {
         startActivity(intent);}
         else
         {
-            super.onBackPressed();
+             super.onBackPressed();
+             finish();
         }
     }
 
@@ -311,7 +338,60 @@ public class Preview_Activity extends AppCompatActivity {
         param.setMargins(25,5,25,25);
         param.setGravity(Gravity.CENTER);
         oImageView.setLayoutParams (param);
+        oImageView.setOnTouchListener(imageTouch);
         relative3.addView(oImageView);
 
     }
-}
+
+    public void composeEmail(View view)
+    {
+
+        Intent email = new Intent(Intent.ACTION_SEND);
+        email.putExtra(Intent.EXTRA_EMAIL, card1.getEmail());
+        email.setType("message/rfc822");
+        startActivity(Intent.createChooser(email, "Choose an Email Client "));
+    }
+    public void getDialer(View view)
+    {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + card1.getPhone()));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
+View.OnTouchListener textTouch=new View.OnTouchListener() {
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        final TextView textView=(TextView) view;
+        switch (motionEvent.getAction()) {
+
+            case MotionEvent.ACTION_DOWN:
+                textView.setTextColor(card1.getColor());
+                break;
+            case MotionEvent.ACTION_UP:
+                textView.setTextColor(Color.BLACK);
+                break;
+        }
+        return false;
+    }};
+
+    View.OnTouchListener imageTouch= new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            final ImageView imageView=(ImageView) view;
+            switch (motionEvent.getAction()) {
+
+                case MotionEvent.ACTION_DOWN:
+                    imageView.setColorFilter(card1.getColor());
+                    break;
+                case MotionEvent.ACTION_UP:
+                    imageView.setColorFilter(getResources().getColor(R.color.gray));
+                    break;
+            }
+            return false;
+        }
+    };
+
+    }

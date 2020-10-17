@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,9 +12,50 @@
         layout="@layout/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+       android:layout_centerInParent="true" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/linear"
+        android:layout_marginBottom="10dp"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:text="Copyright ©️ 2020 Kohli Media LLP. All Rights Reserved."
+        android:layout_centerHorizontal="true"/>
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:id="@+id/linear"
+    android:layout_marginBottom="15dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/merienda"
+        android:textColor="@color/colorPrimary"
+        android:text="#MadeWithLove "
+        android:textSize="18dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/oregano"
+        android:text="❤"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/oregano"
+        android:text=" Kohli.Studio"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25dp" />
+</LinearLayout>
+
+</RelativeLayout>

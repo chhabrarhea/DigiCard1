@@ -35,7 +35,7 @@
         android:layout_below="@id/custom_editText1"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="30dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         android:id="@+id/custom_relative2">
         <Button
             android:layout_width="110dp"
@@ -48,14 +48,14 @@
              android:layout_alignParentLeft="true"
             android:textColor="@color/white"
             android:id="@+id/custom_ok"
-            android:layout_marginLeft="50dp"/>
+            android:layout_marginLeft="20dp"/>
 
         <Button
             android:layout_width="110dp"
             android:layout_height="40dp"
             android:clickable="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="50dp"
+            android:layout_marginRight="20dp"
             android:textColor="@color/black"
             android:text="Cancel"
             android:background="@drawable/custom_text"

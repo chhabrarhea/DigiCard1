@@ -78,7 +78,7 @@
             android:layout_alignParentStart="true"
             android:textColor="@color/white"
             android:id="@+id/custom_ok"
-            android:layout_marginStart="50dp"/>
+            android:layout_marginStart="20dp"/>
 
         <Button
             android:layout_width="110dp"
@@ -86,7 +86,7 @@
 
             android:text="@string/cancel"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="20dp"
             android:textColor="@color/black"
             android:background="@drawable/custom_text"
             android:backgroundTint="@color/cardview_shadow_end_color"

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#eee">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:fitsSystemWindows="true"
+        android:layout_alignParentTop="true"
+        app:titleTextColor="@color/white"
+        android:id="@+id/toolbar"
+        android:background="@color/colorAccent"
+        app:title="Settings" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:orientation="vertical"
+        android:weightSum="11">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:cardCornerRadius="10dp"
+        android:layout_weight="5"
+        android:elevation="10dp"
+        android:backgroundTint="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="4.7"
+            android:layout_marginHorizontal="10dp"
+            android:elevation="10dp"
+            android:layout_marginVertical="10dp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.7"
+                android:text="Change Password"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/poppins"
+                android:textSize="18dp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/old"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/custom_text"
+                android:backgroundTint="@color/cardview_shadow_start_color"
+                android:layout_weight="1"
+                android:paddingHorizontal="20dp"
+                android:inputType="textPassword"
+                android:textColor="@color/black"
+                android:hint="Old Password"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/newP"
+                android:background="@drawable/custom_text"
+                android:layout_weight="1"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/cardview_shadow_start_color"
+                android:paddingHorizontal="20dp"
+                android:inputType="textPassword"
+                android:textColor="@color/black"
+                android:hint="New Password"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/confirmNew"
+                android:background="@drawable/custom_text"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/cardview_shadow_start_color"
+                android:layout_weight="1"
+                android:paddingHorizontal="20dp"
+                android:inputType="textPassword"
+                android:textColor="@color/black"
+                android:hint="Confirm Password"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/custom_text"
+                android:backgroundTint="@color/colorPrimary"
+                android:layout_marginTop="5dp"
+                android:text="Save ChANGES"
+                android:textStyle="bold"
+                android:onClick="changePassword"
+                android:textSize="15dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:paddingVertical="10dp"
+                android:textColor="@color/white"
+                android:id="@+id/savePassword"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:paddingHorizontal="30dp"
+        android:onClick="goPremium"
+        android:layout_marginTop="10dp"
+        android:elevation="5dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/premium_grade"
+        android:weightSum="3"
+        android:layout_gravity="center_horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="Go Premium"
+        android:drawableLeft="@drawable/ic_diamond"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:id="@+id/premium"
+        android:layout_gravity="center"
+        android:onClick="goPremium"
+        android:layout_centerInParent="true"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/poppins"
+        android:textAlignment="center"
+        android:drawableTint="@color/white"
+        android:paddingVertical="8dp"
+        android:textColor="@color/white"/>
+    </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:paddingHorizontal="30dp"
+            android:layout_marginVertical="10dp"
+            android:elevation="5dp"
+            android:onClick="logout"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/custom_button"
+            android:weightSum="3"
+            android:layout_gravity="center_horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="LOGOUT"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:id="@+id/logout"
+                android:layout_gravity="center"
+                android:layout_centerInParent="true"
+                android:onClick="logout"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/poppins"
+                android:textAlignment="center"
+                android:paddingVertical="8dp"
+                android:textColor="@color/icon"/>
+        </RelativeLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:cardCornerRadius="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="4"
+            android:backgroundTint="@color/white"
+            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="20dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="10dp"
+                android:weightSum="7"
+                android:layout_marginVertical="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="Connect with Us"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="18sp"
+                    android:elevation="5dp"
+                    android:textStyle="bold"/>
+
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@drawable/ic_playstore"
+                    android:background="@android:color/transparent"
+                    android:textAlignment="viewStart"
+                    android:text="Rate Us"
+
+                    android:textAllCaps="false"
+                    android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:drawableTint="@color/gray"
+                    android:textSize="15sp"
+                    android:onClick="rateUs"
+                    android:textColor="@color/gray"
+                    android:id="@+id/rateUs"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:background="@android:color/transparent"
+                    android:text="About Us"
+                    android:textAlignment="viewStart"
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@drawable/ic_baseline_info_24"
+                    android:textAllCaps="false"
+                    android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:drawableTint="@color/gray"
+                    android:textSize="15sp"
+                    android:onClick="aboutUs"
+                    android:textColor="@color/black"
+                    android:id="@+id/about"/>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:background="@android:color/transparent"
+                    android:textAlignment="viewStart"
+                    android:text="Write to Us"
+                    android:drawableLeft="@drawable/ic_email"
+                    android:drawablePadding="5dp"
+                    android:textAllCaps="false"
+                    android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
+                    android:drawableTint="@color/gray"
+                    android:textSize="15sp"
+                    android:onClick="writeUs"
+                    android:textColor="@color/black"
+                    android:id="@+id/share"/>
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</RelativeLayout>

@@ -22,6 +22,9 @@ public class card_attributes implements Parcelable {
     @SerializedName("username")
     @Expose
     private String username;
+    @SerializedName("cardname")
+    @Expose
+    private String cardname;
     @SerializedName("name")
     @Expose
     private String name;
@@ -76,6 +79,9 @@ public class card_attributes implements Parcelable {
     @SerializedName("color")
     @Expose
     private int color;
+    @SerializedName("image_path")
+    @Expose
+    private String image_path;
 
 
     protected card_attributes(Parcel in) {
@@ -99,7 +105,8 @@ public class card_attributes implements Parcelable {
         phone = in.readString();
         email = in.readString();
         color = in.readInt();
-
+        image_path=in.readString();
+        cardname=in.readString();
     }
 
     @Override
@@ -124,7 +131,8 @@ public class card_attributes implements Parcelable {
         dest.writeString(phone);
         dest.writeString(email);
         dest.writeInt(color);
-
+        dest.writeString(image_path);
+        dest.writeString(cardname);
     }
 
     @Override
@@ -153,6 +161,14 @@ public class card_attributes implements Parcelable {
     }
 
 
+    public String getImage_path() {
+        return image_path;
+    }
+
+    public void setImage_path(String image_path) {
+        this.image_path = image_path;
+    }
+
     public card_attributes() {
         this.name="";
         this.about="";
@@ -172,6 +188,8 @@ public class card_attributes implements Parcelable {
         this.company="";
         this.designation="";
         this.color=(Color.CYAN);
+        this.image_path="";
+        this.cardname="";
     }
 
 
@@ -325,6 +343,14 @@ public class card_attributes implements Parcelable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getCardname() {
+        return cardname;
+    }
+
+    public void setCardname(String cardname) {
+        this.cardname = cardname;
     }
 }
 

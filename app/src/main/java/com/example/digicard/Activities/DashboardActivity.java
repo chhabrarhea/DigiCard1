@@ -4,15 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -21,13 +18,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.digicard.Database.ApiService;
-import com.example.digicard.Database.AppController;
-import com.example.digicard.Database.Client;
-import com.example.digicard.LocalDatabase.CurrentUser;
+import com.example.digicard.Api.ApiService;
+
+import com.example.digicard.LocalDatabase.AppController;
 import com.example.digicard.R;
+import com.example.digicard.Api.Client;
+import com.example.digicard.model.CardPostResponse;
 import com.example.digicard.model.card_attributes;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
@@ -47,25 +46,16 @@ import static java.util.Objects.requireNonNull;
 
 public class DashboardActivity extends AppCompatActivity {
     Toolbar toolbar;
-
     AlertDialog.Builder alb;
     View custom_alert;
     Button ok;
     Button cancel;
     AlertDialog alertDialog;
-   public static Bitmap image;
-    public static Uri uploadImage;
-
     public static card_attributes card;
     public static Map<String, Object> postCard;    //For POST request
-
-
     private View root;
     private Long time;
-
-    int id;
-    Toolbar Cardname;
-    private String username;
+    TextView Cardname;
     EditText editText2;
     EditText editText3;
     EditText editText1;
@@ -82,11 +72,11 @@ public class DashboardActivity extends AppCompatActivity {
         card = new card_attributes();
         postCard = new HashMap<String, Object>();
         root=findViewById(R.id.dashboardRoot);
-        myInstance=AppController.getInstance();
-
-        card.setUsername(getIntent().getStringExtra(getString(R.string.Key_cardName)));
+        myInstance=AppController.getInstance(DashboardActivity.this);
+        card.setCardname(getIntent().getStringExtra(getString(R.string.Key_cardName)));
         Cardname = findViewById(R.id.CardName);
-        Cardname.setTitle(card.getUsername());
+        Cardname.setText(card.getCardname());
+        card.setUsername(myInstance.getUsername());
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom);
         bottomNavigationView.getMenu().findItem(R.id.preview).setCheckable(false);
@@ -110,6 +100,8 @@ public class DashboardActivity extends AppCompatActivity {
 
                     case R.id.Reset:
                         card=new card_attributes();
+                        postCard=new HashMap<>();
+                        Toast.makeText(DashboardActivity.this,"Card Reset",Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return true;
@@ -153,7 +145,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     }
 
-    public void setPhoto(View v) {
+    public void setBio(View v) {
         Intent intent = new Intent(DashboardActivity.this, get_photo_Activity.class);
         startActivity(intent);
     }
@@ -176,7 +168,6 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 alertDialog.dismiss();
-                if(numberPicker!=null)
                 ((ViewGroup)numberPicker.getParent()).removeView(numberPicker);
 
             }
@@ -194,7 +185,6 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
                 alertDialog.dismiss();
-                if(numberPicker!=null)
                 ((ViewGroup)numberPicker.getParent()).removeView(numberPicker);
             }
         });
@@ -369,6 +359,11 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void save() {
+        if(card.getImage_path()!=null && !card.getImage_path().equals(""))
+        {
+            Toast.makeText(DashboardActivity.this, "saving", Toast.LENGTH_SHORT).show();
+            postCard.put("image_path",card.getImage_path());
+        }
         if (!card.getGst().equals("")) {
             postCard.put("gst", card.getGst());
         }
@@ -382,10 +377,12 @@ public class DashboardActivity extends AppCompatActivity {
             postCard.put("designation", card.getDesignation());
         if (!card.getCompany().equals(""))
             postCard.put("company", card.getCompany());
+
         postCard.put("color",card.getColor());
+        postCard.put("cardname",card.getCardname());
         postCard.put("username",card.getUsername());
         if(!card.getEmail().equals(""))
-        postCard.put("email", card.getEmail());
+            postCard.put("email", card.getEmail());
         if (!card.getPhone().equals("")) {
             postCard.put("phone", card.getPhone());
         }
@@ -395,19 +392,19 @@ public class DashboardActivity extends AppCompatActivity {
             postCard.put("name", card.getName());
         }
         ApiService apiService = Client.getClient().create(ApiService.class);
-        apiService.saveCard(postCard).enqueue(new Callback<ResponseBody>() {
+        apiService.saveCard(postCard).enqueue(new Callback<List<CardPostResponse>>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<List<CardPostResponse>> call, Response<List<CardPostResponse>> response) {
                 if (response.isSuccessful()) {
-                    try {
-                        getNewId(response.body().string());
+                        card.setImage_path(response.body().get(0).getImage_path());
+                        card.setId(response.body().get(0).getId());
+                        List<card_attributes> temp=myInstance.getMyCards();
+                        temp.add(card);
+                        myInstance.setMyCards(temp);
                         Intent intent=new Intent(DashboardActivity.this,Preview_Activity.class);
                         intent.putExtra("Preview_Card",card);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 } else {
                     Toast.makeText(DashboardActivity.this, "Error Occured,Try Again.", Toast.LENGTH_LONG).show();
                     try {
@@ -419,7 +416,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<List<CardPostResponse>> call, Throwable t) {
                 Toast.makeText(DashboardActivity.this, "Error Occured, "+t.getMessage(), Toast.LENGTH_LONG).show();
                 Log.i("saving error:", " " + t.getMessage());
             }
@@ -447,31 +444,7 @@ public class DashboardActivity extends AppCompatActivity {
             time = System.currentTimeMillis();
 
     }
-
-    public void getNewId(String recieved) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < recieved.length(); i++) {
-            if (Character.isDigit(recieved.charAt(i))) {
-                result.append(recieved.charAt(i));
-            }
-
-        }
-        id = Integer.parseInt(result.toString());
-        card.setId(id);
-        List<card_attributes> temp=myInstance.getMyCards();
-        temp.add(card);
-        myInstance.setMyCards(temp);
-        try {
-            List<Integer> temp1=myInstance.getCardId();
-            temp1.add(id);
-            CurrentUser currentUser=new CurrentUser(DashboardActivity.this);
-            currentUser.saveMyCards(temp1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
+    
     public void colorPick()
     {
         ColorPickerDialogBuilder

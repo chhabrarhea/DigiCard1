@@ -21,50 +21,50 @@
         android:layout_below="@id/logo"
         android:layout_marginTop="80dp"
         android:layout_centerHorizontal="true"
-
         android:layout_marginHorizontal="30dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="10dp"
-
+        app:errorTextColor="@color/red"
+        app:boxBackgroundMode="outline"
         android:id="@+id/loginUsernameLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:id="@+id/loginUsername"
-            android:background="@drawable/custom_text"
-            android:backgroundTint="@color/cardview_shadow_start_color"
-            android:layout_marginBottom="10dp"
-            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:background="@drawable/custom_hint_edittext"
+            android:drawableStart="@drawable/ic_email"
+            android:drawableTint="@color/colorPrimary"
+            android:drawablePadding="5dp"
             android:paddingLeft="10dp"
-            android:textColor="@color/white"
-            android:hint="Username"
+            android:textColor="@color/black"
+            android:hint="Email"
             />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/loginUsernameLayout"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="30dp"
         android:layout_marginLeft="45dp"
         android:layout_marginRight="5dp"
         android:id="@+id/loginPasswordLayout"
+        app:boxBackgroundMode="outline"
+        app:errorTextColor="@color/red"
         app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@android:color/white">
+        app:passwordToggleTint="@color/colorAccent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@drawable/custom_text"
-            android:backgroundTint="@color/cardview_shadow_start_color"
-            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_hint_edittext"
             android:drawableStart="@drawable/ic_password"
             android:inputType="textPassword"
             android:id="@+id/loginPassword"
             android:paddingLeft="10dp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:hint="Password"
             />
     </com.google.android.material.textfield.TextInputLayout>
@@ -72,8 +72,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@drawable/custom_text"
-        android:backgroundTint="@color/colorPrimary"
+        android:background="@drawable/custom_button"
         android:layout_marginHorizontal="30dp"
         android:layout_below="@id/loginPasswordLayout"
         android:layout_marginTop="60dp"
@@ -92,6 +91,7 @@
         android:layout_below="@id/loginButton"
         android:layout_marginTop="20dp"
         android:text="Sign Up"
+        android:onClick="signup"
         android:id="@+id/SignButton"
         android:textStyle="bold"
         android:textAlignment="center"

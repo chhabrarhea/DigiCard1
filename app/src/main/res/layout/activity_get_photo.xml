@@ -14,21 +14,22 @@
         android:fitsSystemWindows="true"
         android:layout_alignParentTop="true"
         android:backgroundTint="@color/cardview_shadow_start_color"
-        app:title="Select Photo"
+        app:title="Display Picture"
         app:titleTextColor="@color/black"
 
         android:background="@drawable/toolbar_background"
         android:id="@+id/custom_toolbar"/>
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_below="@id/custom_toolbar"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
+        android:visibility="gone"
         android:id="@+id/custom_icon"
          android:padding="10dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/ic_user"
+        android:src="@drawable/ic_baseline_person_24"
         />
 
     <RelativeLayout
@@ -60,7 +61,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_text"
-                android:backgroundTint="@color/icon"
+                android:textColor="@color/icon"
+                android:backgroundTint="@color/colorAccent"
                 android:layout_alignParentRight="true"
                 android:text="Camera"
                 android:onClick="capture"
@@ -88,10 +90,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_text"
-                android:backgroundTint="@color/icon"
+                android:backgroundTint="@color/colorAccent"
                 android:layout_alignParentRight="true"
                 android:text="Gallery"
                 android:onClick="upload"
+                android:textColor="@color/icon"
                 android:paddingHorizontal="10dp"/>
         </RelativeLayout>
 
@@ -107,7 +110,7 @@
         android:onClick="save"
         android:layout_marginTop="10dp"
         android:textColor="@color/white"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/colorPrimary"
         android:layout_below="@id/custom_relative2"
         android:textSize="20dp"
         android:clickable="true"
