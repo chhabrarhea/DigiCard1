@@ -79,7 +79,8 @@ public class login_activity extends AppCompatActivity {
 
                 Intent intent = new Intent(login_activity.this, myCardsActivity.class);
                 intent.putExtra("error", error);
-                startActivity(intent);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
                 finish();
             }
 

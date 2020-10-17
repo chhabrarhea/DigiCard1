@@ -73,7 +73,7 @@ public class myCardAdapter extends RecyclerView.Adapter<myCardAdapter.myViewHold
 
     @Override
     public Filter getFilter() {
-        return null;
+        return campFilter;
     }
 
     private Filter campFilter = new Filter() {
